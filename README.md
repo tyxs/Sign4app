@@ -1,7 +1,7 @@
 # CloudMusic-LevelUp
 
 > 网易云音乐刷歌升级脚本
-> 
+>
 > 由于个人维护精力有限，欢迎提 issue 和 PR 来帮助增强脚本功能。
 >
 > [项目 GitHub 地址](https://github.com/Secriy/CloudMusic-LevelUp)
@@ -21,6 +21,7 @@
    - Bark
    - pushplus
    - 企业微信
+   - Qmsg
 
 ## 使用方式
 
@@ -36,7 +37,7 @@ pip install -r requirements.txt
 
 ```shell
 # python action.py -h 查看usage
-usage: action.py [-h] [-s SC_KEY] [-t TG_BOT_KEY TG_BOT_KEY] [-b BARK_KEY] [-w WECOM_KEY WECOM_KEY WECOM_KEY] [-p PUSH_PLUS_KEY] phone password
+usage: action.py [-h] [-s SC_KEY] [-t TG_BOT_KEY TG_BOT_KEY] [-b BARK_KEY] [-w WECOM_KEY WECOM_KEY WECOM_KEY] [-p PUSH_PLUS_KEY] [-q QMSG_KEY] phone password
 
 positional arguments:
   phone                 Your Phone Number.
@@ -51,6 +52,7 @@ optional arguments:
   -w WECOM_KEY WECOM_KEY WECOM_KEY
                         Your Wecom ID, App-AgentID and App-Secrets.
   -p PUSH_PLUS_KEY      The token of your pushplus account.
+  -q QMSG_KEY           The key of your Qmsg account.
 ```
 
 手机号默认国际电话区号为中国大陆（+86），如果是海外用户请将手机号字段写为`区号+手机号`的格式，如`852+12343123`，国内用户无需此操作。
@@ -101,13 +103,13 @@ python .\action.py 1xx014x4636,2xx011x4226 1xxx2xx324x65fx6xb22846ea8xcx0x7,2xxx
 
 4. 执行脚本时带参数`-s`指定 SendKey
 
-用例：
+示例：
 
 ```shell
 python action.py [手机号] [32位MD5密码加密值] -s [SendKey]
 ```
 
-示例：
+实例：
 
 ```shell
 python action.py 1xx014x4636 1xxx2xx324x65fx6xb22846ea8xcx0x7 -s SSS111111T111112f3e421
@@ -122,7 +124,7 @@ python action.py 1xx014x4636 1xxx2xx324x65fx6xb22846ea8xcx0x7 -s SSS111111T11111
 1. 创建 Telegram 机器人并获取机器人 Token 以及个人账户的 Chat ID
 2. 执行脚本时指定参数`-t`，其后输入 Token 和 Chat ID 两个参数，顺序固定
 
-示例：
+实例：
 
 ```shell
 python action.py 1xx014x4636 1xxx2xx324x65fx6xb22846ea8xcx0x7 -t 1172135555:AAAABBskKAAAeiE-BBacB1baODj1ccchcMc 1231315343
@@ -138,7 +140,7 @@ python action.py 1xx014x4636 1xxx2xx324x65fx6xb22846ea8xcx0x7 -t 1172135555:AAAA
 2. 复制应用内的示例 URL 并截取其中的 22 位随机字符串
 3. 执行脚本时指定参数`-b`，后接上述 22 位字符串
 
-示例：
+实例：
 
 ```shell
 python action.py 1xx014x4636 1xxx2xx324x65fx6xb22846ea8xcx0x7 -b aaaaaaaaaaaaaaaaaaaaaa
@@ -154,7 +156,7 @@ python action.py 1xx014x4636 1xxx2xx324x65fx6xb22846ea8xcx0x7 -b aaaaaaaaaaaaaaa
 2. 找到**一对一推送**，并复制你的**token**
 3. 执行脚本时指定参数`-p`，后接上述 token 值
 
-示例：
+实例：
 
 ```shell
 python action.py 1xx014x4636 1xxx2xx324x65fx6xb22846ea8xcx0x7 -p aaa6aac77dc1111c2d22c2345555242e
@@ -167,10 +169,24 @@ python action.py 1xx014x4636 1xxx2xx324x65fx6xb22846ea8xcx0x7 -p aaa6aac77dc1111
 1. 配置企业微信，获取企业 ID、应用 ID、应用 Secret
 2. 执行脚本时指定参数`-w`，其后输入企业 ID、应用 ID 和应用 Secrets 三个参数，顺序固定
 
-用例：
+示例：
 
 ```shell
-python action.py 1xx014x4636 1xxx2xx324x65fx6xb22846ea8xcx0x7 -w [企业ID] [应用ID] [应用Secrets]
+python action.py [手机号] [密码] -w [企业ID] [应用ID] [应用Secrets]
+```
+
+#### Qmsg 推送
+
+使用方法：
+
+1. 参照[Qmsg 官网](https://qmsg.zendee.cn/)进行配置，复制个人的 key
+2. 执行脚本时指定参数`-q`，后接上述 key 值
+3. 可以参考 Qmsg 官网文档，修改 Qmsg 相关参数，使用 JSON 卡片、XML 卡片等方式推送，本脚默认不提供
+
+示例：
+
+```shell
+python action.py [手机号] [密码] -q [Qmsg Key]
 ```
 
 ## GitHub Actions 部署
@@ -187,6 +203,7 @@ python action.py 1xx014x4636 1xxx2xx324x65fx6xb22846ea8xcx0x7 -w [企业ID] [应
 - 创建 BARK_KEY（Bark 推送参数，可选）
 - 创建 WECOM_KEY （企业微信推送参数，以空格分割多个参数，可选）
 - 创建 PUSH_PLUS_KEY（pushplus 推送参数，可选）
+- 创建 QMSG_KEY（Qmsg 推送参数，可选）
 
 ![](README/image-20201110002853759.png)
 
@@ -220,7 +237,7 @@ GitHub 有手动执行的功能，点击下图 Run workflow 即可。
 
 ## 腾讯云函数部署
 
-具体步骤参考[腾讯云函数部署CloudMusic-LevelUp脚本](https://blog.secriy.com/2021/06/12/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2CloudMusic-LevelUp%E8%84%9A%E6%9C%AC/)
+具体步骤参考[腾讯云函数部署 CloudMusic-LevelUp 脚本](https://blog.secriy.com/2021/06/12/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2CloudMusic-LevelUp%E8%84%9A%E6%9C%AC/)
 
 ## 注意事项
 

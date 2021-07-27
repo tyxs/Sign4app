@@ -28,6 +28,7 @@ def get_args():
     parser.add_argument("-b", dest="bark_key", nargs=1, help="The key of your bark app.")
     parser.add_argument("-w", dest="wecom_key", nargs=3, help="Your Wecom ID, App-AgentID and App-Secrets.")
     parser.add_argument("-p", dest="push_plus_key", nargs=1, help="The token of your pushplus account.")
+    parser.add_argument("-q", dest="qmsg_key", nargs=1, help="The key of your Qmsg account.")
     args = parser.parse_args()
 
     return {
@@ -38,6 +39,7 @@ def get_args():
         "bark_key": args.bark_key,
         "wecom_key": args.wecom_key,
         "push_plus_key": args.push_plus_key,
+        "qmsg_key": args.qmsg_key,
     }
 
 
@@ -75,29 +77,34 @@ class Push:
 
     # 执行指定的推送流程
     def do(self):
+        # ServerChan
         try:
-            # ServerChan
             self.server_chan_push()
         except Exception as err:
             print(err)
+        # Bark
         try:
-            # Bark
             self.bark_push()
         except Exception as err:
             print(err)
+        # Telegram
         try:
-            # Telegram
             self.telegram_push()
         except Exception as err:
             print(err)
+        # pushplus
         try:
-            # pushplus
             self.push_plus_push()
         except Exception as err:
             print(err)
+        # 企业微信
         try:
-            # 企业微信
             self.wecom_id_push()
+        except Exception as err:
+            print(err)
+        # Qmsg
+        try:
+            self.qmsg_push()
         except Exception as err:
             print(err)
 
@@ -164,6 +171,13 @@ class Push:
             print("微信推送配置错误")
         else:
             print("Wecom: " + ret)
+
+    # Qmsg Push
+    def qmsg_push(self):
+        arg = self.info["qmsg_key"]
+        url = "https://qmsg.zendee.cn/send/{0}?msg={1}".format(arg[0], self.text)
+        ret = requests.post(url)
+        print("Qmsg: " + ret.text)
 
 
 # 加密类，实现网易云音乐前端加密流程
