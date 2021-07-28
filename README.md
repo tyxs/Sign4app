@@ -22,6 +22,7 @@
    - pushplus
    - 企业微信
    - Qmsg
+   - 钉钉机器人
 
 ## 使用方式
 
@@ -37,7 +38,7 @@ pip install -r requirements.txt
 
 ```shell
 # python action.py -h 查看usage
-usage: action.py [-h] [-s SC_KEY] [-t TG_BOT_KEY TG_BOT_KEY] [-b BARK_KEY] [-w WECOM_KEY WECOM_KEY WECOM_KEY] [-p PUSH_PLUS_KEY] [-q QMSG_KEY] phone password
+usage: action.py [-h] [-s SC_KEY] [-t TG_BOT_KEY TG_BOT_KEY] [-b BARK_KEY] [-w WECOM_KEY WECOM_KEY WECOM_KEY] [-p PUSH_PLUS_KEY] [-q QMSG_KEY] [-d DING_TOKEN] phone password
 
 positional arguments:
   phone                 Your Phone Number.
@@ -53,6 +54,7 @@ optional arguments:
                         Your Wecom ID, App-AgentID and App-Secrets.
   -p PUSH_PLUS_KEY      The token of your pushplus account.
   -q QMSG_KEY           The key of your Qmsg account.
+  -d DING_TOKEN         The access token of Ding Talk bot.
 ```
 
 手机号默认国际电话区号为中国大陆（+86），如果是海外用户请将手机号字段写为`区号+手机号`的格式，如`852+12343123`，国内用户无需此操作。
@@ -189,6 +191,21 @@ python action.py [手机号] [密码] -w [企业ID] [应用ID] [应用Secrets]
 python action.py [手机号] [密码] -q [Qmsg Key]
 ```
 
+#### 钉钉机器人推送
+
+使用方法：
+
+1. 创建钉钉群聊，在**设置-智能群助手**中添加一个**自定义机器人**
+2. 机器人名字随意，安全设置选择**自定义关键词**，填入`CMLU`，完成创建
+3. 复制该机器人的**Webhook**地址，截取其中`access_token=`之后的 token
+4. 执行脚本时指定参数`-d`，后接上述 token 值
+
+示例：
+
+```shell
+python action.py [手机号] [密码] -d [Access Token]
+```
+
 ## GitHub Actions 部署
 
 ### 1. Fork 该仓库
@@ -204,6 +221,7 @@ python action.py [手机号] [密码] -q [Qmsg Key]
 - 创建 WECOM_KEY （企业微信推送参数，以空格分割多个参数，可选）
 - 创建 PUSH_PLUS_KEY（pushplus 推送参数，可选）
 - 创建 QMSG_KEY（Qmsg 推送参数，可选）
+- 创建 DING_TOKEN（钉钉推送参数，可选）
 
 ![](README/image-20201110002853759.png)
 

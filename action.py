@@ -29,6 +29,7 @@ def get_args():
     parser.add_argument("-w", dest="wecom_key", nargs=3, help="Your Wecom ID, App-AgentID and App-Secrets.")
     parser.add_argument("-p", dest="push_plus_key", nargs=1, help="The token of your pushplus account.")
     parser.add_argument("-q", dest="qmsg_key", nargs=1, help="The key of your Qmsg account.")
+    parser.add_argument("-d", dest="ding_token", nargs=1, help="The access token of Ding Talk bot.")
     args = parser.parse_args()
 
     return {
@@ -40,6 +41,7 @@ def get_args():
         "wecom_key": args.wecom_key,
         "push_plus_key": args.push_plus_key,
         "qmsg_key": args.qmsg_key,
+        "ding_token": args.ding_token,
     }
 
 
@@ -76,7 +78,7 @@ class Push:
         self.info = args
 
     # 执行指定的推送流程
-    def do(self):
+    def do_push(self):
         # ServerChan
         try:
             self.server_chan_push()
@@ -105,6 +107,11 @@ class Push:
         # Qmsg
         try:
             self.qmsg_push()
+        except Exception as err:
+            print(err)
+        # Ding
+        try:
+            self.ding_talk_push()
         except Exception as err:
             print(err)
 
@@ -178,6 +185,15 @@ class Push:
         url = "https://qmsg.zendee.cn/send/{0}?msg={1}".format(arg[0], self.text)
         ret = requests.post(url)
         print("Qmsg: " + ret.text)
+
+    # Ding Talk Push
+    def ding_talk_push(self):
+        arg = self.info["ding_token"]
+        url = "https://oapi.dingtalk.com/robot/send?access_token={0}".format(arg[0])
+        header = {"Content-Type": "application/json"}
+        data = json.dumps({"msgtype": "text", "text": {"content": "【CMLU】\n\n" + self.text}})
+        ret = requests.post(url, headers=header, data=data)
+        print("Ding: " + ret.text)
 
 
 # 加密类，实现网易云音乐前端加密流程
@@ -388,7 +404,7 @@ def run_task(info, phone, password):
     print(30 * "=")
     # 推送
     message = res_login + "\n\n" + res_sign + "\n\n" + res_m_sign + "\n\n" + res_task
-    Push(message, info).do()
+    Push(message, info).do_push()
     print(30 * "=")
 
 

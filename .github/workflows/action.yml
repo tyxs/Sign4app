@@ -33,6 +33,7 @@ jobs:
           WECOM_KEY: ${{ secrets.WECOM_KEY }}
           PUSH_PLUS_KEY: ${{ secrets.PUSH_PLUS_KEY }}
           QMSG_KEY: ${{ secrets.QMSG_KEY }}
+          DING_TOKEN: ${{ secrets.DING_TOKEN }}
         run: |
           if [ ${PASSWORD_PLAIN} ]; then PASSWORD=$PASSWORD_PLAIN; fi
           if [ ${SC_KEY} ];then SC_CMD="-s $SC_KEY"; fi
@@ -41,4 +42,5 @@ jobs:
           if [[ ${WECOM_KEY} ]];then WECOM_CMD="-w $WECOM_KEY"; fi
           if [ ${PUSH_PLUS_KEY} ];then PUSH_PLUS_CMD="-p $PUSH_PLUS_KEY"; fi
           if [ ${QMSG_KEY} ];then QMSG_CMD="-q QMSG_KEY"; fi
-          python3 action.py ${PHONE} ${PASSWORD} ${SC_CMD} ${TG_BOT_CMD} ${BARK_CMD} ${WECOM_CMD} ${PUSH_PLUS_CMD} ${QMSG_CMD}
+          if [ ${DING_TOKEN} ];then DING_CMD="-d DING_TOKEN"; fi
+          python3 action.py ${PHONE} ${PASSWORD} ${SC_CMD} ${TG_BOT_CMD} ${BARK_CMD} ${WECOM_CMD} ${PUSH_PLUS_CMD} ${QMSG_CMD} ${DING_CMD}
