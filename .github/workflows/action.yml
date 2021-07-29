@@ -41,6 +41,6 @@ jobs:
           if [ ${BARK_KEY} ];then BARK_CMD="-b $BARK_KEY"; fi
           if [[ ${WECOM_KEY} ]];then WECOM_CMD="-w $WECOM_KEY"; fi
           if [ ${PUSH_PLUS_KEY} ];then PUSH_PLUS_CMD="-p $PUSH_PLUS_KEY"; fi
-          if [ ${QMSG_KEY} ];then QMSG_CMD="-q QMSG_KEY"; fi
-          if [ ${DING_TOKEN} ];then DING_CMD="-d DING_TOKEN"; fi
+          if [ ${QMSG_KEY} ];then QMSG_CMD="-q $QMSG_KEY"; fi
+          if [ ${DING_TOKEN} ];then DING_CMD="-d $DING_TOKEN"; fi
           python3 action.py ${PHONE} ${PASSWORD} ${SC_CMD} ${TG_BOT_CMD} ${BARK_CMD} ${WECOM_CMD} ${PUSH_PLUS_CMD} ${QMSG_CMD} ${DING_CMD}
