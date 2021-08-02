@@ -8,6 +8,8 @@
 """
 
 import os
+import random
+import time
 import requests
 import base64
 import binascii
@@ -117,6 +119,8 @@ class Push:
 
     # Server Chan Turbo Push
     def server_chan_push(self):
+        if not self.info["sc_key"]:
+            return
         arg = self.info["sc_key"]
         url = "https://sctapi.ftqq.com/{0}.send".format(arg[0])
         headers = {"Content-type": "application/x-www-form-urlencoded"}
@@ -126,6 +130,8 @@ class Push:
 
     # Telegram Bot Push
     def telegram_push(self):
+        if not self.info["tg_bot_key"]:
+            return
         arg = self.info["tg_bot_key"]
         url = "https://api.telegram.org/bot{0}/sendMessage".format(arg[0])
         data = {
@@ -137,6 +143,8 @@ class Push:
 
     # Bark Push
     def bark_push(self):
+        if not self.info["bark_key"]:
+            return
         arg = self.info["bark_key"]
         data = {"title": "网易云打卡", "body": self.text}
         headers = {"Content-Type": "application/json;charset=utf-8"}
@@ -146,6 +154,8 @@ class Push:
 
     # PushPlus Push
     def push_plus_push(self):
+        if not self.info["push_plus_key"]:
+            return
         arg = self.info["push_plus_key"]
         url = "http://www.pushplus.plus/send?token={0}&title={1}&content={2}&template={3}".format(
             arg[0], "网易云打卡", self.text, "html"
@@ -155,6 +165,8 @@ class Push:
 
     # Wecom Push
     def wecom_id_push(self):
+        if not self.info["wecom_key"]:
+            return
         arg = self.info["wecom_key"]
         body = {
             "touser": "@all",
@@ -181,6 +193,8 @@ class Push:
 
     # Qmsg Push
     def qmsg_push(self):
+        if not self.info["qmsg_key"]:
+            return
         arg = self.info["qmsg_key"]
         url = "https://qmsg.zendee.cn/send/{0}?msg={1}".format(arg[0], self.text)
         ret = requests.post(url)
@@ -188,6 +202,8 @@ class Push:
 
     # Ding Talk Push
     def ding_talk_push(self):
+        if not self.info["ding_token"]:
+            return
         arg = self.info["ding_token"]
         url = "https://oapi.dingtalk.com/robot/send?access_token={0}".format(arg[0])
         header = {"Content-Type": "application/json"}
@@ -333,11 +349,12 @@ class CloudMusic:
 
     # 获取任务歌单池内的所有音乐ID
     def get_task_musics(self):
+        random.seed(time.time())
         musics = []
         recommend_musics = self.get_list_musics(self.get_recommend_playlists())
         subscribe_musics = self.get_list_musics(self.get_subscribe_playlists())
-        musics.extend(recommend_musics[:320] if len(recommend_musics) > 320 else recommend_musics)
-        musics.extend(subscribe_musics[:200] if len(subscribe_musics) > 200 else subscribe_musics)
+        musics.extend(random.sample(recommend_musics, 320) if len(recommend_musics) > 320 else recommend_musics)
+        musics.extend(random.sample(subscribe_musics, 200) if len(subscribe_musics) > 200 else subscribe_musics)
         return musics
 
     # 任务
