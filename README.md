@@ -4,7 +4,7 @@
 >
 > 由于个人维护精力有限，欢迎提 issue 和 PR 来帮助增强脚本功能。
 >
-> QQ 群：688610999
+> 交流群（QQ）：688610999
 >
 > [项目 GitHub 地址](https://github.com/Secriy/CloudMusic-LevelUp)
 
