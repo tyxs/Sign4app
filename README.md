@@ -4,6 +4,8 @@
 >
 > 由于个人维护精力有限，欢迎提 issue 和 PR 来帮助增强脚本功能。
 >
+> QQ 群：688610999
+>
 > [项目 GitHub 地址](https://github.com/Secriy/CloudMusic-LevelUp)
 
 ## 脚本功能
@@ -270,9 +272,3 @@ GitHub 有手动执行的功能，点击下图 Run workflow 即可。
 ## 声明
 
 本项目仅作个人学习与参考用途，项目用于商业用途造成的法律问题与作者无关。
-
-## 联系方式
-
-### 微信
-
-![image](README/IMG_3483.png)
