@@ -253,12 +253,12 @@ class CloudMusic:
 
     # 登录流程
     def login(self):
-        login_url = "https://music.163.com/weapi/login/cellphone"
+        login_url = "https://music.163.com/weapi/w/login/cellphone?csrf_token="
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/84.0.4147.89 Safari/537.36",
-            "Referer": "http://music.163.com/",
-            "Accept-Encoding": "gzip, deflate",
+            "Referer": "https://music.163.com/",
+            "Accept-Encoding": "gzip, deflate, br",
             "Cookie": "os=pc; osver=Microsoft-Windows-10-Professional-build-10586-64bit; appver=2.0.3.131777; "
             "channel=netease; __remember_me=true;",
         }

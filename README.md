@@ -259,6 +259,12 @@ GitHub 有手动执行的功能，点击下图 Run workflow 即可。
 
 具体步骤参考[腾讯云函数部署 CloudMusic-LevelUp 脚本](https://blog.secriy.com/2021/06/12/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2CloudMusic-LevelUp%E8%84%9A%E6%9C%AC/)
 
+## 常见问题
+
+### 登录失败：250
+
+250 报错是因为账号受限，当前登录环境异常导致，通常在使用腾讯云函数时出现，如出现该报错请尝试使用 GitHub Actions 部署方式。
+
 ## 注意事项
 
 - 脚本只支持 Python3 环境
