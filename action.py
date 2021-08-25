@@ -282,7 +282,7 @@ class CloudMusic:
     # Get the level of account.
     # 获取用户的等级信息等
     def get_level(self):
-        url = "https://music.163.com/weapi/user/level?csrf_token=" + self.csrf
+        url = "https://music.163.com/weapi/user/level"
         res = self.session.post(url=url, data=self.login_data, headers=self.headers)
         ret = json.loads(res.text)
         return ret["data"]
@@ -352,9 +352,9 @@ class CloudMusic:
         random.seed(time.time())
         musics = []
         recommend_musics = self.get_list_musics(self.get_recommend_playlists())
-        subscribe_musics = self.get_list_musics(self.get_subscribe_playlists())
+        # subscribe_musics = self.get_list_musics(self.get_subscribe_playlists())
         musics.extend(random.sample(recommend_musics, 320) if len(recommend_musics) > 320 else recommend_musics)
-        musics.extend(random.sample(subscribe_musics, 200) if len(subscribe_musics) > 200 else subscribe_musics)
+        # musics.extend(random.sample(subscribe_musics, 200) if len(subscribe_musics) > 200 else subscribe_musics)
         return musics
 
     # 任务
@@ -372,7 +372,7 @@ class CloudMusic:
                                     "end": "playend",
                                     "id": x,
                                     "sourceId": "",
-                                    "time": 240,
+                                    "time": 300,
                                     "type": "song",
                                     "wifi": 0,
                                 },
