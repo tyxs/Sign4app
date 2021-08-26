@@ -8,6 +8,13 @@
 >
 > [项目 GitHub 地址](https://github.com/Secriy/CloudMusic-LevelUp)
 
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/secriy/CloudMusic-LevelUp/%E7%BD%91%E6%98%93%E4%BA%91%E9%A3%9E%E5%8D%87/master)
+![](https://img.shields.io/badge/python-3.7-brightgreen)
+![GitHub Repo stars](https://img.shields.io/github/stars/secriy/CloudMusic-LevelUp)
+![GitHub forks](https://img.shields.io/github/forks/secriy/CloudMusic-LevelUp)
+![GitHub issues](https://img.shields.io/github/issues/secriy/CloudMusic-LevelUp)
+![GitHub](https://img.shields.io/github/license/secriy/CloudMusic-LevelUp)
+![GitHub last commit](https://img.shields.io/github/last-commit/secriy/CloudMusic-LevelUp)
 ## 脚本功能
 
 1. 登录网易云音乐
