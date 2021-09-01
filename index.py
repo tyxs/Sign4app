@@ -10,6 +10,7 @@ infos = {
     # "wecom_key": ["XXXX", "XXXX", "XXXX"],
     # "push_plus_key": ["XXXX"],
     # "qmsg_key": ["XXXX"],
+    # "lark_key": ["XXXX"],
     # "ding_token": ["XXXX"],
 }
 

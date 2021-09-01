@@ -106,6 +106,10 @@ class Push:
             self.wecom_id_push()
         except Exception as err:
             print(err)
+        try:
+            self.lark_push()
+        except Exception as err:
+            print(err)
         # Qmsg
         try:
             self.qmsg_push()
@@ -162,6 +166,25 @@ class Push:
         )
         ret = requests.get(url)
         print("pushplus: " + ret.text)
+
+    # Lark Push
+    def lark_push(self):
+        if not self.info["lark_key"]:
+            return
+        arg = self.info["lark_key"]
+        body = {
+            "msg_type": "text",
+            "content": {"text": self.text},
+        }
+        res = requests.post(
+            "https://open.feishu.cn/open-apis/bot/v2/hook/{0}".format(arg[0]),
+            data=json.dumps(body),
+        )
+        ret = res.json()
+        if ret["StatusCode"] != 0:
+            print("Lark推送配置错误")
+        else:
+            print("Lark: " + ret)
 
     # Wecom Push
     def wecom_id_push(self):
