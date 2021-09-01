@@ -32,6 +32,7 @@ def get_args():
     parser.add_argument("-p", dest="push_plus_key", nargs=1, help="The token of your pushplus account.")
     parser.add_argument("-q", dest="qmsg_key", nargs=1, help="The key of your Qmsg account.")
     parser.add_argument("-d", dest="ding_token", nargs=1, help="The access token of Ding Talk bot.")
+    parser.add_argument("-l", dest="lark_key", nargs=1, help="The key of Lark(飞书) push.")
     args = parser.parse_args()
 
     return {
@@ -44,6 +45,7 @@ def get_args():
         "push_plus_key": args.push_plus_key,
         "qmsg_key": args.qmsg_key,
         "ding_token": args.ding_token,
+        "lark_key": args.lark_key,
     }
 
 
@@ -106,6 +108,7 @@ class Push:
             self.wecom_id_push()
         except Exception as err:
             print(err)
+        # 飞书
         try:
             self.lark_push()
         except Exception as err:

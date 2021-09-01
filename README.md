@@ -65,6 +65,7 @@ optional arguments:
   -p PUSH_PLUS_KEY      The token of your pushplus account.
   -q QMSG_KEY           The key of your Qmsg account.
   -d DING_TOKEN         The access token of Ding Talk bot.
+  -l LARK_KEY           The key of Lark(飞书) push.
 ```
 
 手机号默认国际电话区号为中国大陆（+86），如果是海外用户请将手机号字段写为`区号+手机号`的格式，如`852+12343123`，国内用户无需此操作。
@@ -232,6 +233,7 @@ python action.py [手机号] [密码] -d [Access Token]
 - 创建 PUSH_PLUS_KEY（pushplus 推送参数，可选）
 - 创建 QMSG_KEY（Qmsg 推送参数，可选）
 - 创建 DING_TOKEN（钉钉推送参数，可选）
+- 创建 LARK_KEY（飞书推送参数，可选）
 
 ![](README/image-20201110002853759.png)
 
