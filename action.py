@@ -70,8 +70,8 @@ def aes_encrypt(text, sec_key):
 # RSA Encrypt
 # 用于进行RSA加密
 def rsa_encrypt(text, pub_key, modulus):
-    text = text[::-1]
-    rs = int(text.encode("utf-8").hex(), 16) ** int(pub_key, 16) % int(modulus, 16)
+    text = text[::-1].encode("utf-8").hex()
+    rs = pow(int(text, 16), int(pub_key, 16), int(modulus, 16))
     return format(rs, "x").zfill(256)
 
 
@@ -291,7 +291,7 @@ class CloudMusic:
         res = self.session.post(url=login_url, data=self.login_data, headers=headers)
         ret = json.loads(res.text)
         if ret["code"] == 200:
-            self.csrf = requests.utils.dict_from_cookiejar(res.cookies)["__csrf"]
+            self.csrf = res.cookies.get("__csrf")
             self.nickname = ret["profile"]["nickname"]
             self.uid = ret["account"]["id"]
             level = self.get_level()
