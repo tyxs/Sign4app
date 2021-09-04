@@ -179,10 +179,7 @@ class Push:
             "msg_type": "text",
             "content": {"text": self.text},
         }
-        res = requests.post(
-            "https://open.feishu.cn/open-apis/bot/v2/hook/{0}".format(arg[0]),
-            data=json.dumps(body),
-        )
+        res = requests.post("https://open.feishu.cn/open-apis/bot/v2/hook/{0}".format(arg[0]), data=json.dumps(body),)
         ret = res.json()
         if ret["StatusCode"] != 0:
             print("Lark推送配置错误")
