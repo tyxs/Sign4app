@@ -216,6 +216,50 @@ python action.py [手机号] [密码] -q [Qmsg Key]
 python action.py [手机号] [密码] -d [Access Token]
 ```
 
+## Docker 方式运行（目前支持 企业微信推送）
+
+### 使用方法：
+
+- 可以修改 `cron_list` 的定时任务
+```sh
+# 默认 每天 13、16 点执行
+0 13,16 * * * . /etc/profile;/bin/sh /scripts/task.sh >> /var/log/cron.log 2>&1
+```
+
+然后 `docker build -t cloudMusic_levelUp:latest .` 基于目前构建镜像（修改后），然后可以直接通过 `docker run ...` 方式直接运行，推荐使用 `docker-compose.yml` 的方式运行容器，代码如下：
+
+```yml
+cloudmusic_levelup:
+  image: cloudmusic_levelup
+  # deploy:
+  #   resources:
+  #     limits:
+  #       cpus: '0.3'
+  #       memory: 500M
+  container_name: auto_cloudmusic
+  restart: always
+  environment:
+    # 账号
+    - PHONE=xxxxxx
+    - PASSWORD=xxxxxx
+    # 企业微信通知
+    - QYWX_ID=xxxxx
+    - QYWX_APP_ID=xxxxxx
+    - QYWX_APP_Secrets=xxxxxx
+```
+
+然后在 `docker-compose.yml` 目录下运行 `docker-compose up -d` 来启动容器，修改 `docker-compose.yml` 后也通过这个来重启容器
+
+如果想要自己手动运行，可以使用如下命令:
+
+```sh
+# 进入 容器内部，默认目录就是 脚本存放目录
+docker exec -it auto_cloudmusic bash
+# 手动触发
+./task.sh
+```
+
+
 ## 腾讯云函数部署
 
 具体步骤参考[腾讯云函数部署 CloudMusic-LevelUp 脚本](https://blog.secriy.com/2021/06/12/%E8%85%BE%E8%AE%AF%E4%BA%91%E5%87%BD%E6%95%B0%E9%83%A8%E7%BD%B2CloudMusic-LevelUp%E8%84%9A%E6%9C%AC/)
